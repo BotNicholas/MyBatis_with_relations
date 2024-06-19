@@ -21,7 +21,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mappers/UserMapper.xml"/>
-        <mapper resource="mappers/BlogMapper.xml"/>
+        <mapper class="org.nicholas.mappers.PostMapper"/>
+        <mapper class="org.nicholas.mappers.BlogMapper"/>
+        <mapper class="org.nicholas.mappers.UserMapper"/>
     </mappers>
 </configuration>
