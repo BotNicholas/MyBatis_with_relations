@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nicholas.mappers.UserMapper">
+    <resultMap id="userResult" type="User">
+        <id property="userId" column="user_id"/>
+        <result property="emailId" column="email_id"/>
+        <result property="password" column="password"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastname" column="lastname"/>
+        <association property="blog" resultMap="blogResult"/>
+    </resultMap>
+    
+    <resultMap id="blogResult" type="Blog">
+        <id property="blogId" column="blog_id"/>
+        <result property="blogName" column="blog_name"/>
+        <result property="createdOn" column="created_on"/>
+    </resultMap>
+
+    <select id="findAll" resultType="User" resultMap="userResult">
+        select * from user left join blog.blog b on user.blog_id = b.blog_id
+    </select>
+
+    <select id="findById" resultType="User" resultMap="userResult" parameterType="int">
+        select * from user left join blog.blog b on user.blog_id = b.blog_id where user_id = #{userId}
+    </select>
+</mapper>

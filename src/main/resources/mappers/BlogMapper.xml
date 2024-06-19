@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nicholas.mappers.BlogMapper">
+    <resultMap id="blogResult" type="Blog">
+        <id property="blogId" column="blog_id"/>
+        <result property="blogName" column="blog_name"/>
+        <result property="createdOn" column="created_on"/>
+        <collection property="posts" ofType="Post" resultMap="postResult"/>
+    </resultMap>
+
+    <resultMap id="postResult" type="Post">
+        <id property="postId" column="post_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="createdOn" column="created_on"/>
+    </resultMap>
+
+    <select id="findAll" resultType="Blog" resultMap="blogResult">
+        select * from blog b left join post p on b.blog_id = p.blog_id;
+    </select>
+
+
+    <select id="findById" resultType="Blog" parameterType="int" resultMap="blogResult">
+        select * from blog b left join post p on b.blog_id = p.blog_id where b.blog_id = #{blogId};
+    </select>
+</mapper>
